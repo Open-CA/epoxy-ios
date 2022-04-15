@@ -144,6 +144,11 @@ struct CollectionViewData {
 
     let section = sections[indexPath.section]
 
+    guard section.supplementaryItems[elementKind]?.count ?? 0 > indexPath.item else {
+      EpoxyLogger.shared.assertionFailure("Index of supplementary view is out of bounds.")
+      return nil
+    }
+
     guard let model = section.supplementaryItems[elementKind]?[indexPath.item] else {
       EpoxyLogger.shared.assertionFailure(
         """
